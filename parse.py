@@ -10,7 +10,8 @@ template = (
     "4. **Direct Data Only:** Your output should contain only the data that is explicitly requested, with no other text."
 )
 
-model = OllamaLLM(model='llama3')
+model = OllamaLLM(model="llama3")
+
 
 def parse_with_ollama(dom_chunks, parse_description):
     prompt = ChatPromptTemplate.from_template(template)
@@ -19,8 +20,10 @@ def parse_with_ollama(dom_chunks, parse_description):
     parsed_results = []
 
     for i, chunk in enumerate(dom_chunks, start=1):
-        response = chain.invoke({'dom_content': chunk, 'parse_description': parse_description})
-        print(f'Parsed chunk {i} of {len(dom_chunks)}:')
+        response = chain.invoke(
+            {"dom_content": chunk, "parse_description": parse_description}
+        )
+        print(f"Parsed chunk {i} of {len(dom_chunks)}:")
         parsed_results.append(response)
 
-    return '\n'.join(parsed_results)
+    return "\n".join(parsed_results)
